@@ -6,12 +6,14 @@ module.exports.getLink = async function(url) {
     try{
 
         console.log(' -> start getLink Nightmare');
+
         if (!url) return;
 
         console.log('url');
         console.log(url);
         
         return new Promise((resolve, reject)=>{
+
             Nightmare({
                 'ignore-certificate-errors': true,
                 'node-integration': false,
