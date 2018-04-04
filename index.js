@@ -72,7 +72,7 @@ var server = app.listen(process.env.PORT, function() {
 		                                date: item.date,
 		                                price: item.price,
 		                                pic: item.pic,
-		                                trade: item.trade
+		                                trade: item.trade,
 		                                link: item.link
 									}, function(err, result) {
 										if( err ) {
