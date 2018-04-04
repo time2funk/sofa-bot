@@ -48,12 +48,12 @@ xvfb.start(function(err, xvfbProcess) {
             // .viewport(2000, 1000)
             .wait(2000)
             .evaluate(function(url) {
-                console.log(' ! - ! - ! - evaluate - ! - ! - !');
+                // console.log(' ! - ! - ! - evaluate - ! - ! - !');
                 var list, 
                     result = [];
 
                 if(url.search(/olx\.pl/i) != -1){
-                    console.log(' - - - > olx');
+                    // console.log(' - - - > olx');
 
                     list = document.querySelectorAll('div.listHandler #offers_table>tbody>tr');
                     if(!list)
@@ -63,7 +63,6 @@ xvfb.start(function(err, xvfbProcess) {
                         
 
                     for(var i=0; i<list.length; i++){
-                        console.log('FOR LOOP ITERATION: '+i);
                         var ad = list[i];
                         if( !ad.querySelector('tr td div.space.rel p.marginbott5 span') ) continue;
 
@@ -72,9 +71,10 @@ xvfb.start(function(err, xvfbProcess) {
                         let location = ad.querySelector('tr td div.space.rel p.marginbott5 span').innerText;
                         let date = ad.querySelector('tr td div.space.rel p.x-normal').innerText;
                         let price = ad.querySelector('tr td div.space.rel.inlblk p.price strong').innerText;
-                        let pic = ad.querySelector('img').getAttribute("src");
-                        let link = ad.querySelector('tr td div.space.rel h3 a').getAttribute("href");
+                        let link = ad.querySelector('tr td div.space.rel a').getAttribute("href");
                         let trade = ad.querySelector('tr td div.space.rel.inlblk span.normal.inlblk.pdingtop5');
+                        let pic = ad.querySelector('img');
+                        pic = pic ?  pic.getAttribute("src") : "<no thumb photo>";
 
                         if( id && name && location && date && price && pic && link){
                             if(trade) trade = true; 
@@ -90,7 +90,7 @@ xvfb.start(function(err, xvfbProcess) {
                                 link: link,
                                 trade: trade
                             });
-                        }
+                        }else reject('broken evaluate html parsing');
                     }
                 }
                 // else if (url.search(/xhamster\.com/i) != -1){

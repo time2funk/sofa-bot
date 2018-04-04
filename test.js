@@ -56,53 +56,7 @@ var server = app.listen(process.env.PORT, async function() {
 			var list = await scraper.getLink(url);
 			console.log("list");
 			console.log(list);
-
-			for(var i=0; i<list.length; i++){
-				var item = list[i];
-
-				await new Promise(function(resolve,reject){
-
-					db.getCollection('ads', (collection)=>{
-						collection.findOne({"id" : item.id})
-						.then((tmpl)=>{
-							console.log("tmpl");
-							console.log(tmpl);
-					        if(!tmpl){
-					        	console.log(" No record found ");
-
-					        	notifyAll(item);
-
-								db.getCollection('ads', (collection)=>{
-									console.log('insert');
-									collection.insert({
-		                                id: item.id,
-		                                name: item.name,
-		                                location: item.location,
-		                                date: item.date,
-		                                price: item.price,
-		                                pic: item.pic,
-		                                trade: item.trade,
-		                                link: item.link
-									}, function(err, result) {
-										if( err ) {
-											console.log('err: '+err);
-											reject(err);
-										}
-										console.log("save new ad");
-										console.log(result);
-										resolve("new ad");
-									});
-								});
-					        }else{ 
-								resolve("old ad");
-					        	// old ad, do nothing
-					    	}
-						});
-					});
-
-				});
-			}
-
+			console.log(" - end -");
 		} catch (e) {
 			console.log(e);
 			return 0;

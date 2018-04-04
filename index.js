@@ -15,7 +15,7 @@ const db = require('./db');
 const scraper = require('./scraper');
 const bot = require('./bot');
 
-function notifyAll (item){
+async function notifyAll (item){
     db.getCollection('users', (collection) => {
         collection.find().toArray((err, users) => {
             console.log("users");
@@ -23,15 +23,18 @@ function notifyAll (item){
 
             for (var j = 0; j < users.length; j++) {
             	bot.sendPhoto(users[j].telID, item.pic);
-                bot.sendMessage(users[j].telID, `
-				${ item.link }
-				${ item.name }
-				${ item.location }
-				${ item.price }
-				${ item.trade ? "price agreeable" : "" }
-				id: ${ item.id }
-				${ item.date }
-				`);
+                bot.sendMessage(users[j].telID, 
+`
+${ item.link }
+${ item.name }
+${ item.location }
+${ item.price }
+${ item.trade ? "price agreeable" : "" }
+id: ${ item.id }
+${ item.date }
+-------------end|
+`
+				);
             }
         });
     });
@@ -39,12 +42,15 @@ function notifyAll (item){
 
 const express = require('express');
 const packageInfo = require('./package.json');
+
 var app = express();
+
 app.get('/', function(req, res) {
     res.json({
         version: packageInfo.version
     });
 });
+
 var server = app.listen(process.env.PORT, function() {
     var host = server.address().address;
     var port = server.address().port;
@@ -64,13 +70,13 @@ var server = app.listen(process.env.PORT, function() {
 
 					db.getCollection('ads', (collection)=>{
 						collection.findOne({"id" : item.id})
-						.then((tmpl)=>{
+						.then( async(tmpl)=>{
 							console.log("tmpl");
 							console.log(tmpl);
 					        if(!tmpl){
 					        	console.log(" No record found ");
 
-					        	notifyAll(item);
+					        	await notifyAll(item);
 
 								db.getCollection('ads', (collection)=>{
 									console.log('insert');
