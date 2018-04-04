@@ -22,7 +22,10 @@ async function notifyAll (item){
             console.log(users);
 
             for (var j = 0; j < users.length; j++) {
-            	bot.sendPhoto(users[j].telID, item.pic);
+            	if(item.pic == "<no thumb photo>")
+            		bot.sendMessage(users[j].telID, "<no thumb photo>");
+            	else
+            		bot.sendPhoto(users[j].telID, item.pic);
                 bot.sendMessage(users[j].telID, 
 `
 ${ item.link }
