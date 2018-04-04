@@ -65,9 +65,10 @@ module.exports.getLink = async function(url) {
                         let date = ad.querySelector('tr td div.space.rel p.x-normal').innerText;
                         let price = ad.querySelector('tr td div.space.rel.inlblk p.price strong').innerText;
                         let pic = ad.querySelector('img').getAttribute("src");
+                        let link = ad.querySelector('tr td div.space.rel h3 a').getAttribute("href");
                         let trade = ad.querySelector('tr td div.space.rel.inlblk span.normal.inlblk.pdingtop5');
 
-                        if( id && name && location && date && price && pic ){
+                        if( id && name && location && date && price && pic && link){
                             if(trade) trade = true; 
                             else trade = false;
 
@@ -78,6 +79,7 @@ module.exports.getLink = async function(url) {
                                 date: date,
                                 price: price,
                                 pic: pic,
+                                link: link,
                                 trade: trade
                             });
                         }
