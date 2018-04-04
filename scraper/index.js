@@ -1,6 +1,7 @@
 'use strict';
-
 const Nightmare = require("nightmare");
+const Xvfb = require('xvfb');
+xvfb = new Xvfb();
 
 module.exports.getLink = async function(url) {
     try{
@@ -13,7 +14,7 @@ module.exports.getLink = async function(url) {
         console.log(url);
         
         return new Promise((resolve, reject)=>{
-
+xvfb.start(function(err, xvfbProcess) {
             Nightmare({
                 'ignore-certificate-errors': true,
                 'node-integration': false,
@@ -29,7 +30,9 @@ module.exports.getLink = async function(url) {
             })
             .on('crashed', function(event, url){
                 console.log('[Nightmare] crashed');
-                reject('crashed');
+                xvfb.stop(function(err) {
+                    reject('crashed');
+                });                
             })
             .on('did-fail-load', function(event){
                 console.log('[Nightmare] did-fail-load');
@@ -54,7 +57,10 @@ module.exports.getLink = async function(url) {
 
                     list = document.querySelectorAll('div.listHandler #offers_table>tbody>tr');
                     if(!list)
-                        reject('broken link');
+                        xvfb.stop(function(err) {
+                            reject('broken link');
+                        });
+                        
 
                     for(var i=0; i<list.length; i++){
                         console.log('FOR LOOP ITERATION: '+i);
@@ -105,25 +111,36 @@ module.exports.getLink = async function(url) {
                 //         reject('broken link');
                 //     link = obj.src;
                 // }
-                else{
-                    reject('wrong link');
+                else{ 
+                    xvfb.stop(function(err) {
+                        reject('wrong link');
+                    });                    
                 }
 
                 if(!result) 
-                    reject('empty result array');
+                    xvfb.stop(function(err) {
+                        reject('empty result array');
+                    });
+                    
                 return result;
             }, url)
             .end()
     		.then(function(results) {
     		    console.log(" - donor html list - ");
     		    console.log(results);
-		        resolve(results);
+                xvfb.stop(function(err) {
+                    resolve(results);
+                });
     		})
             .catch(err => {
                 console.log(" { Nightmare REJECT } ");
                 console.error(err);
-                reject(err);
+                xvfb.stop(function(err) {
+                    reject(err);
+                });
+                
             })
+}); // xvfb
         });
 
     } catch (e) {
