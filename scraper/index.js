@@ -1,7 +1,7 @@
 'use strict';
 const Nightmare = require("nightmare");
 const Xvfb = require('xvfb');
-xvfb = new Xvfb();
+const xvfb = new Xvfb();
 
 module.exports.getLink = async function(url) {
     try{
