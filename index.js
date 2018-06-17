@@ -1,7 +1,7 @@
 
 // const url = 'https://www.gumtree.pl/s-mieszkania-i-domy-do-wynajecia/warszawa/mieszkanie/v1c9008l3200008a1dwp1?fr=ownr&pr=1300,2300&nr=3';
-const url = 'https://www.olx.pl/nieruchomosci/mieszkania/wynajem/warszawa/?search%5Bfilter_float_price%3Afrom%5D=1000&search%5Bfilter_float_price%3Ato%5D=2200&search%5Bfilter_enum_rooms%5D%5B0%5D=three&search%5Bprivate_business%5D=private';
-
+// const url = 'https://www.olx.pl/nieruchomosci/mieszkania/wynajem/warszawa/?search%5Bfilter_float_price%3Afrom%5D=1000&search%5Bfilter_float_price%3Ato%5D=2200&search%5Bfilter_enum_rooms%5D%5B0%5D=three&search%5Bprivate_business%5D=private';
+const url = 'https://www.olx.pl/dom-ogrod/meble/sofy-kanapy/warszawa/?search%5Bfilter_float_price%3Ato%5D=150&search%5Bphotos%5D=1';
 // xvfb-run node --harmony index.js
 // pm2 start --interpreter xvfb-run npm -- start
 
