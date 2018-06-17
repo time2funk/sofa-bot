@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const db_conf = {
   url : 'mongodb://localhost:27017',
-  name : 'pbotdb'
+  name : 'sofapbotdb'
 };
 
 const dbManager = class {

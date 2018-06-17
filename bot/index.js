@@ -13,7 +13,7 @@ bot.on('message', (msg) => {
     // sign for homesearch
     console.log(' - - -msg- - - - - - - - - - - - - - ');
     console.log(msg);
-    if (msg.text == 'findmeahome') {
+    if (msg.text == 'findmeasofa') {
         bot.sendMessage(chatId, 'we will find it');
         db.getCollection('users', (collection, err) => {
             if (err) {
