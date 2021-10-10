@@ -93,24 +93,6 @@ xvfb.start(function(err, xvfbProcess) {
                         }else reject('broken evaluate html parsing');
                     }
                 }
-                // else if (url.search(/xhamster\.com/i) != -1){
-                //     console.log(' - - - > xhamster');
-                //     obj = document.querySelector('a.player-container__no-player.xplayer');
-                //     if(!obj)
-                //         // return new Promise(function(resolve, reject) {
-                //             reject('broken link');
-                //         // })
-                //     link = obj.href;
-                // }
-                // else if (url.search(/youporn/i) != -1){
-                //     console.log(' - - - > youporn');
-                //     obj = document.querySelector('video source');
-                //     console.log(' - - - > obj');
-                //     console.log(obj);
-                //     if(!obj)
-                //         reject('broken link');
-                //     link = obj.src;
-                // }
                 else{ 
                     xvfb.stop(function(err) {
                         reject('wrong link');
